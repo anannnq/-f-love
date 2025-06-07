@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Seni Çok Seviyorum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Fredoka One', cursive;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+    text-shadow:
+      0 0 8px #ff4f81,
+      0 0 15px #ff4f81,
+      0 0 30px #ff4f81,
+      0 0 50px #ff4f81,
+      0 0 90px #ff4f81;
+    animation: flicker 3s infinite alternate;
+    line-height: 1.3;
+    max-width: 90vw;
+    opacity: 1;
+    transition: opacity 1s ease;
+  }
+
+  @keyframes flicker {
+    0%, 100% {
+      text-shadow:
+        0 0 8px #ff4f81,
+        0 0 15px #ff4f81,
+        0 0 30px #ff4f81,
+        0 0 50px #ff4f81,
+        0 0 90px #ff4f81;
+      color: #fff0f5;
+    }
+    50% {
+      text-shadow:
+        0 0 20px #ffd700,
+        0 0 40px #ffd700,
+        0 0 70px #ffd700,
+        0 0 110px #ff69b4,
+        0 0 150px #ff69b4;
+      color: #fff;
+    }
+  }
+
+  .particle {
+    position: fixed;
+    pointer-events: none;
+    animation-timing-function: linear;
+  }
+
+  .heart {
+    width: 30px;
+    height: 28px;
+    background-color: #ff5c8d;
+    position: absolute;
+    clip-path: polygon(
+      50% 0%,
+      100% 30%,
+      85% 90%,
+      50% 100%,
+      15% 90%,
+      0% 30%
+    );
+    opacity: 0.95;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 4px #ff2a56);
+  }
+
+  .star {
+    width: 22px;
+    height: 22px;
+    background: yellow;
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+    opacity: 0.85;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 5px #fff700);
+  }
+
+  .kiss {
+    width: 35px;
+    height: 28px;
+    background: radial-gradient(circle at 60% 40%, #ff6a85, #b71c1c);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: absolute;
+    opacity: 0.9;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 5px #ff2a56);
+  }
+
+  .sparkle {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.95;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    box-shadow:
+      0 0 7px 3px white;
+  }
+
+  .penguin {
+    font-size: 28px;
+    position: absolute;
+    user-select: none;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 6px #000);
+  }
+
+  @keyframes floatUp {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.8) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-150vh) scale(1.2) rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1 id="message">Seni çok seviyorum benim tatlı balimmm ❤️</h1>
+
+<script>
+  const colors = ['#ff4f81', '#ff69b4', '#ffd700', '#ff1493', '#ff6347', '#ff4500'];
+  const particleTypes = ['heart', 'star', 'kiss', 'sparkle', 'penguin'];
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+    particle.classList.add('particle', type);
+
+    // Başlangıç konumu: ekranın altından rastgele yatay pozisyon
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.bottom = '-30px';
+
+    // Animasyon süresi ve gecikmesi (daha uzun süre)
+    const duration = 6000 + Math.random() * 4000;
+    particle.style.animationDuration = duration + 'ms';
+    particle.style.animationDelay = (Math.random() * 3000) + 'ms';
+
+    // Renk ayarla
+    if (type === 'heart') {
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    } else if (type === 'star') {
+      particle.style.backgroundColor = 'yellow';
+    } else if (type === 'kiss') {
+      // zaten ayarlı
+    } else if (type === 'sparkle') {
+      particle.style.width = '6px';
+      particle.style.height = '6px';
+      particle.style.background = 'white';
+      particle.style.borderRadius = '50%';
+      particle.style.boxShadow = '0 0 7px 3px white';
+      particle.style.opacity = '0.95';
+    } else if (type === 'penguin') {
+      particle.textContent = '🐧';
+      particle.style.fontSize = '28px';
+      particle.style.filter = 'drop-shadow(0 0 5px #000)';
+      particle.style.background = 'none';
+      particle.style.width = 'auto';
+      particle.style.height = 'auto';
+    }
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, duration + 3000);
+  }
+
+  // Daha sık partikül oluştur
+  setInterval(createParticle, 80);
+
+  // Yazı renkli yanıp sönme efekti
+  const message = document.getElementById('message');
+  const messages = [
+    "Seni çok seviyorum benim tatlı balimmm ❤️",
+    "Benim tatlı balimmm sensiz yaşayamam ❤️"
+  ];
+  let index = 0;
+
+  function switchMessage() {
+    // Opaklığı azalt
+    message.style.opacity = 0;
+    setTimeout(() => {
+      // Metni değiştir
+      index = (index + 1) % messages.length;
+      message.textContent = messages[index];
+      // Opaklığı arttır
+      message.style.opacity = 1;
+    }, 1000);
+  }
+
+  // 3 saniye sonra mesaj değişsin
+  setTimeout(() => {
+    switchMessage();
+    // 3 saniyede bir mesaj değişsin tekrar
+    setInterval(switchMessage, 6000);
+  }, 3000);
+
+  // Yazı rengini sık sık değiştir
+  setInterval(() => {
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    message.style.color = color;
+  }, 400);
+</script>
+
+</body>
+</html>
